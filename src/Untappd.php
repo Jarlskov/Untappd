@@ -23,8 +23,7 @@ class Untappd
     {
         $result = $this->doRequest('beer/info/' . $id);
 
-        $beer = Beer::fromUntappdResponse(json_decode((string) $result->getBody())->response->beer);
-        die(var_dump($beer));
+        return Beer::fromUntappdResponse(json_decode((string) $result->getBody())->response->beer);
     }
 
     private function doRequest(string $url): Response
