@@ -1,0 +1,19 @@
+{
+    "name": "jarlskov/untappd",
+    "description": "Untappd.com API wrapper in PHP.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Jarlskov\\Untappd\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jesper Jarlskov",
+            "email": "jesper@jarlskov.dk"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    }
+}
