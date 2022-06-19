@@ -11,6 +11,26 @@ class Location
     private float $lat;
     private float $lng;
 
+    public function getBreweryCity(): string
+    {
+        return $this->breweryCity;
+    }
+
+    public function getBreweryState(): string
+    {
+        return $this->breweryState;
+    }
+
+    public function getLat(): float
+    {
+        return $this->lat;
+    }
+
+    public function getLng(): float
+    {
+        return $this->lng;
+    }
+
     public static function fromUntappdResponse(\stdClass $response): self
     {
         $location = new self();
