@@ -18,6 +18,51 @@ class Brewery
         private Location $location
     ) { }
 
+    public function getBreweryId(): int
+    {
+        return $this->breweryId;
+    }
+
+    public function getBreweryName(): string
+    {
+        return $this->breweryName;
+    }
+
+    public function getBreweryType(): string
+    {
+        return $this->breweryType;
+    }
+
+    public function getBrewerySlug(): string
+    {
+        return $this->brewerySlug;
+    }
+
+    public function getBreweryPageUrl(): string
+    {
+        return $this->breweryPageUrl;
+    }
+
+    public function getBreweryLabel(): string
+    {
+        return $this->breweryLabel;
+    }
+
+    public function getCountryName(): string
+    {
+        return $this->countryName;
+    }
+
+    public function getContact(): Contact
+    {
+        return $this->contact;
+    }
+
+    public function getLocation(): Location
+    {
+        return $this->location;
+    }
+
     public static function fromUntappdResponse(\stdClass $response): self
     {
         return new self($response->brewery_id,

@@ -10,6 +10,21 @@ class Contact
     private string $twitter;
     private string $url;
 
+    public function getFacebook(): string
+    {
+        return $this->facebook;
+    }
+
+    public function getTwitter(): string
+    {
+        return $this->twitter;
+    }
+
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
     public static function fromUntappdResponse(\stdClass $response): self
     {
         $contact = new Self();

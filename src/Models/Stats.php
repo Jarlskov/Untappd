@@ -12,6 +12,21 @@ class Stats
         private int $userCount
     ) { }
 
+    public function getMonthlyCount(): int
+    {
+        return $this->monthlyCount;
+    }
+
+    public function getTotalUserCount(): int
+    {
+        return $this->totalUserCount;
+    }
+
+    public function getUserCount(): int
+    {
+        return $this->userCount;
+    }
+
     public static function fromUntappdResponse(\stdClass $response): self
     {
         return new self(
