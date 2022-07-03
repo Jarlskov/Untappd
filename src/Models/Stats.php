@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jarlskov\Untappd\Models;
 
+use stdClass;
+
 class Stats
 {
     public function __construct(private int $totalCount,
@@ -27,8 +29,12 @@ class Stats
         return $this->userCount;
     }
 
-    public static function fromUntappdResponse(\stdClass $response): self
+    public static function fromUntappdResponse(stdClass $response = null): ?self
     {
+        if (!$response) {
+            return null;
+        }
+
         return new self(
             $response->total_count,
             $response->monthly_count,

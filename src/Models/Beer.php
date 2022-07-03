@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jarlskov\Untappd\Models;
 
+use stdClass;
+
 class Beer
 {
     private function __construct(private int $bid,
@@ -19,7 +21,7 @@ class Beer
         private bool $isHomebrew,
         private int $ratingCount,
         private float $ratingScore,
-        private Stats $stats,
+        private ?Stats $stats,
         private Brewery $brewery
     ) {}
 
@@ -93,24 +95,24 @@ class Beer
         return $this->brewery;
     }
 
-    public static function fromUntappdResponse(\stdClass $response): self
+    public static function fromUntappdResponse(stdClass $response, stdClass $brewery = null): self
     {
         return new self(
             $response->bid,
             $response->beer_name,
             $response->beer_label,
-            $response->beer_label_hd,
+            $response->beer_label_hd ?? '',
             $response->beer_abv,
             $response->beer_ibu,
             $response->beer_description,
             $response->beer_style,
-            (bool) $response->is_in_production,
+            (bool) ($response->is_in_production ?? true),
             $response->beer_slug,
-            (bool) $response->is_homebrew,
-            (int) $response->rating_count,
-            $response->rating_score,
-            Stats::fromUntappdResponse($response->stats),
-            Brewery::fromUntappdResponse($response->brewery)
+            (bool) ($response->is_homebrew ?? true),
+            (int) ($response->rating_count ?? 0),
+            $response->rating_score ?? 0,
+            Stats::fromUntappdResponse($response->stats ?? null),
+            Brewery::fromUntappdResponse($response->brewery ?? $brewery)
         );
     }
 }

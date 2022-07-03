@@ -2,7 +2,7 @@
     "name": "jarlskov/untappd",
     "description": "Untappd.com API wrapper in PHP.",
     "type": "library",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "autoload": {
         "psr-4": {
             "Jarlskov\\Untappd\\": "src/"

@@ -6,6 +6,7 @@ namespace Jarlskov\Untappd;
 
 use GuzzleHttp\Client as GuzzleClient;
 use Jarlskov\Untappd\Models\Beer;
+use Jarlskov\Untappd\Models\SearchRequest;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class Untappd
@@ -26,7 +27,28 @@ class Untappd
         return Beer::fromUntappdResponse(json_decode((string) $result->getBody())->response->beer);
     }
 
-    private function doRequest(string $url): Response
+    public function beerSearch(SearchRequest $request): array
+    {
+        $query = '';
+        if ($request->hasBreweryName()) {
+            $query .= $request->getBreweryName() . ' ';
+        }
+        if ($request->hasBeerName()) {
+            $query .= $request->getBeerName();
+        }
+
+        $result = $this->doRequest('search/beer', ['query' => ['q' => $query]]);
+
+        $searchResult = json_decode((string) $result->getBody())->response->beers->items;
+        $beers = [];
+        foreach ($searchResult as $r) {
+            $beers[] = Beer::fromUntappdResponse($r->beer, $r->brewery);
+        }
+
+        return $beers;
+    }
+
+    private function doRequest(string $url, array $options = []): Response
     {
         $params = [
             'query' => [
@@ -34,6 +56,8 @@ class Untappd
                 'client_secret' => $this->clientSecret,
             ],
         ];
+
+        $params = array_merge_recursive($params, $options);
 
         return $this->guzzle->get($this->baseUrl . $url, $params);
     }
